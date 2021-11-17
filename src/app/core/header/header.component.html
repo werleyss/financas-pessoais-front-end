@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" >
+    <span>Finanças Pessoais</span>
+  
+    <a mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+      Home
+    </a>
+    <a mat-button mat-button-base routerLink="/conta">
+      <mat-icon>account_balance</mat-icon>
+      Conta
+    </a>
+    <a mat-button mat-button-base routerLink="/categoria">
+      <mat-icon>list</mat-icon>
+      Categoria
+    </a>
+    <a mat-button mat-button-base routerLink="/financeiro/receita">
+      <mat-icon>attach_money</mat-icon>
+      Receita
+    </a>
+    <a mat-button mat-button-base routerLink="/financeiro/despesa">
+      <mat-icon>money_off</mat-icon>
+      Despesa
+    </a>
+    <a mat-button mat-button-base (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Sair
+    </a>
+  </mat-toolbar>
