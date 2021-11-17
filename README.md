@@ -1,27 +1,56 @@
-# FinancasPessoaisAngular
+<h1 align="center">
+    Finanças Pessoais Front-end 
+</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-instalacao">Instalação</a>
+  <a href="#-endpoints">Endpoints</a>
+</p>
 
-## Development server
+<br>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<p align="center">
+  <img alt="Angular" src="https://angular.io/assets/images/logos/angular/angular.svg" width="400">
+</p>
 
-## Code scaffolding
+## 🚀 Tecnologias
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-## Build
+- [Nodejs](https://nodejs.org/)
+- [Angular 2+](https://angular.io/)
+- [Docker](https://www.docker.com/)
+## 💻 Projeto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Esse projeto é finalidade de criar sistema de controle de finanças pessoais despesas e receitas.  
 
-## Running unit tests
+## 🔖 Instalação
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Git clone do projeto 
+- cd financas-pessoais-front-end 
+- docker-compose up -d 
 
-## Running end-to-end tests
+Acesse o projeto pela a URL http://localhost:4200 
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## 🔖 Endpoints 
 
-## Further help
+- http://localhost:4200/#/login 
+- http://localhost:4200/#/register 
+- http://localhost:4200/#/conta
+- http://localhost:4200/#/conta/novo
+- http://localhost:4200/#/conta/editar/:id
+- http://localhost:4200/#/categoria
+- http://localhost:4200/#/categoria/novo
+- http://localhost:4200/#/categoria/editar/:id
+- http://localhost:4200/#/financeiro/receita 
+- http://localhost:4200/#/financeiro/receita/novo
+- http://localhost:4200/#/financeiro/receita/editar/:id
+- http://localhost:4200/#/financeiro/despesa
+- http://localhost:4200/#/financeiro/despesa/novo
+- http://localhost:4200/#/financeiro/despesa/editar/:id
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+---
+
+Werley Silva
