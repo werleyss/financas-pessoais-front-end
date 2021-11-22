@@ -86,7 +86,7 @@ export class ListComponent implements OnInit {
 
     for (const item in obj) {
 
-      if (obj[item] === null) {
+      if (obj[item] === null || !obj[item]) {
         delete obj[item];
       }
 

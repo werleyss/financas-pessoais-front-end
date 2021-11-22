@@ -34,7 +34,7 @@
                         <option [ngValue]="undefined">Todas</option>
                         <option *ngFor="let item of listaCategoria.data" [ngValue]="item.id">
                             {{ item.descricao }}</option>
-    
+
                     </select>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                         <option [ngValue]="undefined">Todas</option>
                         <option *ngFor="let item of listaConta.data" [ngValue]="item.id">
                             {{ item.descricao }}</option>
-    
+
                     </select>
                 </div>
             </div>
@@ -69,15 +69,17 @@
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-sm table-borderless  table-striped table-hover">
                         <thead class="thead">
-                            <th >Descrição</th>                            
-                            <th >Vencimento</th>             
+                            <th >Descrição</th>
+                            <th >Valor</th>
+                            <th >Vencimento</th>
                             <th >{{tipo === 'R' ? 'Recebimento' : 'Pagamento'}}</th>
                             <th >Status</th>
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="let item of listaFinanceiro.data" [routerLink]="['editar/', item.id]" style="cursor: pointer">                                
+                            <tr *ngFor="let item of listaFinanceiro.data" [routerLink]="['editar/', item.id]" style="cursor: pointer">
                                 <td >{{item.descricao }}</td>
+                                <td >{{item.valor | currency: 'BRL'}}</td>
                                 <td >{{item.dt_vencimento | date: 'dd/MM/yyyy'}}</td>
                                 <td >{{item.dt_pagamento | date: 'dd/MM/yyyy'}}</td>
                                 <td >{{item.status == 'S' ? 'Efetivado' : 'Pendente'  }}</td>

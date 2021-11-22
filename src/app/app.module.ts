@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,11 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { HomeComponent } from './shared/components/home/home.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthGuard } from './core/guards/auth.guard';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,8 +61,13 @@ import { ToastrModule } from 'ngx-toastr';
   }),
   ],
   providers: [
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR',
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [
