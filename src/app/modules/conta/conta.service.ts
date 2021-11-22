@@ -12,15 +12,13 @@ export class ContaService {
 
   constructor(private http: HttpClient) { }
 
-  obterTodos(obj: ContaViewModel): Observable<RetornoApiViewModel<ContaViewModel>> {
+  obterTodos(obj: any): Observable<RetornoApiViewModel<ContaViewModel[]>> {
 
-    const params = new HttpParams().set('filters', JSON.stringify(obj));
-
-    return this.http.get<RetornoApiViewModel<ContaViewModel>>(`${environment.api_url}/conta`, { params } );
+    return this.http.get<RetornoApiViewModel<ContaViewModel[]>>(`${environment.api_url}/conta`, { params: obj } );
   }
 
-  obterPorId(id: number): Observable<ContaViewModel> {
-    return this.http.get<ContaViewModel>(`${environment.api_url}/conta/${id}`);
+  obterPorId(id: number): Observable<RetornoApiViewModel<ContaViewModel>> {
+    return this.http.get<RetornoApiViewModel<ContaViewModel>>(`${environment.api_url}/conta/${id}`);
   }
 
   adicionar(obj: ContaViewModel): Observable<ContaViewModel> {

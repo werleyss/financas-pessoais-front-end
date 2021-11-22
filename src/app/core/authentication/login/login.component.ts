@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
+import { Uteis } from 'src/app/shared/models/Uteis';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
@@ -17,10 +19,11 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(
-      private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
-      private router: Router,
-      private authentication$: AuthenticationService
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authentication$: AuthenticationService,
+    private alert: ToastrService
   ) {
       if (this.authentication$.usuarioAtualValue) {
           this.router.navigate(['/']);
@@ -54,8 +57,8 @@ export class LoginComponent implements OnInit {
                   this.router.navigate([this.returnUrl]);
               },
               error => {
-                  this.error = error.error.error;
-                  this.loading = false;
+                this.loading = false;
+                this.alert.error(Uteis.ObterErroApi(error), 'Error');
               });
   }
 }

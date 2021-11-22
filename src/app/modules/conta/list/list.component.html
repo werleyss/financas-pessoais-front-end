@@ -1,1 +1,81 @@
-<p>list works!</p>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<div class="card mb-1 shadow-sm" id="target">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <h1>Conta</h1>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="text-right btns-group">
+                    <button class="btn btn-sm btn-outline-info m-1" (click)="obterList()"><i
+                            class="material-icons">search</i>Pesquisar</button>
+                    <a [routerLink]="['novo']" class="btn btn-sm btn-success m-1"><i class="material-icons">add</i>Novo</a>
+                </div>
+            </div>
+          </div>
+    </div>
+  <div class="card-body pt-1 pb-1">
+      <div class="row">
+          <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <div class="form-group">
+                  <label for="codigo" class="col-form-label-sm">Código</label>
+                  <input type="number" id="codigo" name="codigo" class="form-control form-control-sm noscroll" placeholder="Código" [(ngModel)]="pesquisa.id">
+              </div>
+          </div>
+          <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+              <div class="form-group">
+                  <label for="descricao" class="col-form-label-sm">Descrição</label>
+                  <input type="text" id="descricao" name="descricao" class="form-control form-control-sm noscroll" placeholder="Descrição" [(ngModel)]="pesquisa.descricao">
+              </div>
+          </div>
+          <div class="col-sm-12 col-md-8 col-lg-12 col-xl-3 text-right mt-4">
+              <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="ativo" name="ativo" class="custom-control-input form-control-sm "
+                          [(ngModel)]="pesquisa.status">
+                      <label class="custom-control-label col-form-label-sm status-filtro"
+                          for="ativo">Desativado</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="card-body pt-1 pb-1 bg-white">
+      <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <div class="table-responsive table-responsive-sm">
+                  <table class="table table-sm table-borderless  table-striped table-hover">
+                      <thead class="thead">
+                          <th >Código</th>                            
+                          <th >Descrição</th>
+                      </thead>
+
+                      <tbody>
+                          <tr *ngFor="let item of listaConta.data" [routerLink]="['editar/', item.id]" style="cursor: pointer">                                
+                              <td >{{item.id }}</td>
+                              <td >{{item.descricao }}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="card-footer">
+      <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <span>Total de Registo(s): </span><strong>{{listaConta?.meta?.total}}</strong>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+              <div class="btn-group btn-group-sm">
+                <pagination boundaryLinks="true" [maxSize]="5" [rotate]="false" previousText="&lsaquo;"
+                    nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                    [itemsPerPage]="listaConta?.meta?.per_page"
+                    [totalItems]="listaConta?.meta?.total" (pageChanged)="mudarPagina($event)">
+                </pagination>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

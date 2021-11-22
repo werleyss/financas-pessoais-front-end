@@ -15,10 +15,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './core/authentication/login/login.component';
 import { RegisterComponent } from './core/authentication/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { HomeComponent } from './shared/components/home/home.component';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,20 @@ import { HomeComponent } from './shared/components/home/home.component';
     MatFormFieldModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 5000,
+      extendedTimeOut: 5000,
+      enableHtml: true,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      preventDuplicates: true,
+      countDuplicates: true,
+      resetTimeoutOnDuplicate: true,
+      positionClass: 'toast-bottom-right'
+
+  }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

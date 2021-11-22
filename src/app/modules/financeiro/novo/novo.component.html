@@ -1,1 +1,128 @@
-<p>novo works!</p>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<form (ngSubmit)="onSubmit()">
+    <div class="card mb-1 shadow-sm" id="target">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <h1>{{ tipo === 'R' ? 'Receita' : 'Despesa'}} - {{ alterar ? 'Editar' : 'Cadastro'}}</h1>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="text-right btns-group">
+                        <a class="btn btn-sm btn-outline-secondary m-1" href="javascript:window.history.back();"><i
+                            class="material-icons">arrow_back</i>Voltar</a>
+        
+                            <button class="btn btn-sm btn-outline-success m-1" id="salvar" type="submit" [disabled]="loading">
+                                <div [ngSwitch]="loading">
+                                    <div *ngSwitchCase="true">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;
+                                        <span>Carregando ...</span>
+                                    </div>
+                                    <div *ngSwitchDefault>
+                                        <i class="material-icons">done_all</i><span>Salvar</span>
+                                    </div>
+                                </div>
+                            </button>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="card-body pt-1 pb-1" [formGroup]="cadastroForm">
+        <div class="row">
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="valor" class="col-form-label-sm">Valor</label>
+                    <input type="number" id="valor" name="valor" class="form-control form-control-sm noscroll" placeholder="Valor" 
+                        [ngClass]="{'is-invalid': displayMessage.valor}"
+                        formControlName="valor">
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.valor">
+                        <p [innerHTML]="displayMessage.valor"></p>
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="dt_vencimento" class="col-form-label-sm">Vencimento</label>
+                    <input type="date" id="dt_vencimento" name="dt_vencimento" class="form-control form-control-sm noscroll" placeholder="Vencimento" 
+                        [ngClass]="{'is-invalid': displayMessage.dt_vencimento}"
+                        pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                        formControlName="dt_vencimento">
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.dt_vencimento">
+                        <p [innerHTML]="displayMessage.dt_vencimento"></p>
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="descricao" class="col-form-label-sm">Descrição</label>
+                    <input type="text" id="descricao" name="descricao" class="form-control form-control-sm noscroll" placeholder="Descrição" 
+                        [ngClass]="{'is-invalid': displayMessage.descricao}"
+                        formControlName="descricao">
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.descricao">
+                        <p [innerHTML]="displayMessage.descricao"></p>
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="categoria_id" class="col-form-label-sm">Categorias</label>
+                    <select id="categoria_id" name="categoria_id" class="form-control form-control-sm noscroll" placeholder="Código" 
+                    [ngClass]="{'is-invalid': displayMessage.categoria_id}"
+                    formControlName="categoria_id">
+                        <option *ngFor="let item of listaCategoria.data" [ngValue]="item.id">
+                            {{ item.descricao }}</option>
+    
+                    </select>
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.categoria_id">
+                        <p [innerHTML]="displayMessage.categoria_id"></p>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="conta_id" class="col-form-label-sm">Contas</label>
+                    <select id="conta_id" name="conta_id" class="form-control form-control-sm noscroll" placeholder="Código" 
+                    [ngClass]="{'is-invalid': displayMessage.conta_id}"
+                    formControlName="conta_id">
+                        <option *ngFor="let item of listaConta.data" [ngValue]="item.id">
+                            {{ item.descricao }}</option>
+    
+                    </select>
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.conta_id">
+                        <p [innerHTML]="displayMessage.conta_id"></p>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="status" class="col-form-label-sm">Status</label>
+                    <select id="status" name="status" class="form-control form-control-sm noscroll" placeholder="status" 
+                    (change)="atualizarValidacaoDtPagamento()"
+                    formControlName="status">
+                        <option [ngValue]="'N'">{{tipo === 'R' ? 'Não foi Recebido': 'Não foi Pago'}}</option>
+                        <option [ngValue]="'S'">{{tipo === 'R' ? 'Foi Recebido': 'Foi Pago'}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6" *ngIf="status.value === 'S'">
+                <div class="form-group">
+                    <label for="dt_pagamento" class="col-form-label-sm">Data de {{tipo === 'R' ? 'Recebimento' : 'Pagamento'}}</label>
+                    <input type="date" id="dt_pagamento" name="dt_pagamento" class="form-control form-control-sm noscroll" placeholder="Vencimento" 
+                        [ngClass]="{'is-invalid': displayMessage.dt_pagamento}"
+                        formControlName="dt_pagamento"
+                        pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.dt_pagamento">
+                        <p [innerHTML]="displayMessage.dt_pagamento"></p>
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</form>

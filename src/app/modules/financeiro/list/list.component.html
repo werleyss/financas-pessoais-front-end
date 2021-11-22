@@ -1,1 +1,107 @@
-<p>list works!</p>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<div class="card mb-1 shadow-sm" id="target">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <h1>Financeiro - {{ tipo == 'R' ? 'Receita' : 'Despesa'}}</h1>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="text-right btns-group">
+                    <button class="btn btn-sm btn-outline-info m-1" (click)="obterList()"><i
+                            class="material-icons">search</i>Pesquisar</button>
+                    <a [routerLink]="['novo']" class="btn btn-sm btn-success m-1"><i class="material-icons">add</i>Novo</a>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div class="card-body pt-1 pb-1">
+        <div class="row">
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label for="status" class="col-form-label-sm">Status</label>
+                    <select id="status" name="status" class="form-control form-control-sm noscroll" placeholder="status" [(ngModel)]="pesquisa.status">
+                        <option [ngValue]="undefined">Todos</option>
+                        <option [ngValue]="'N'">Pendente</option>
+                        <option [ngValue]="'S'">Efetivado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label for="categoria_id" class="col-form-label-sm">Categorias</label>
+                    <select id="categoria_id" name="categoria_id" class="form-control form-control-sm noscroll" placeholder="Código" [(ngModel)]="pesquisa.categoria_id">
+                        <option [ngValue]="undefined">Todas</option>
+                        <option *ngFor="let item of listaCategoria.data" [ngValue]="item.id">
+                            {{ item.descricao }}</option>
+    
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label for="conta_id" class="col-form-label-sm">Contas</label>
+                    <select id="conta_id" name="conta_id" class="form-control form-control-sm noscroll" placeholder="Código" [(ngModel)]="pesquisa.conta_id">
+                        <option [ngValue]="undefined">Todas</option>
+                        <option *ngFor="let item of listaConta.data" [ngValue]="item.id">
+                            {{ item.descricao }}</option>
+    
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                <div class="form-group">
+                    <label for="dt_vencimento_inicial" class="col-form-label-sm">Data de Vencimento</label>
+                    <div class="input-group">
+                        <input type="date" id="dt_vencimento_inicial" name="dt_vencimento_inicial"
+                            class="form-control form-control-sm" [(ngModel)]="pesquisa.dt_vencimento_inicial">
+                        <span class="ml-1 mr-1 mt-1 text">a</span>
+                        <input type="date" id="dt_vencimento_final" name="dt_vencimento_final"
+                            class="form-control form-control-sm" [(ngModel)]="pesquisa.dt_vencimento_final">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pt-1 pb-1 bg-white">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="table-responsive table-responsive-sm">
+                    <table class="table table-sm table-borderless  table-striped table-hover">
+                        <thead class="thead">
+                            <th >Descrição</th>                            
+                            <th >Vencimento</th>             
+                            <th >{{tipo === 'R' ? 'Recebimento' : 'Pagamento'}}</th>
+                            <th >Status</th>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let item of listaFinanceiro.data" [routerLink]="['editar/', item.id]" style="cursor: pointer">                                
+                                <td >{{item.descricao }}</td>
+                                <td >{{item.dt_vencimento | date: 'dd/MM/yyyy'}}</td>
+                                <td >{{item.dt_pagamento | date: 'dd/MM/yyyy'}}</td>
+                                <td >{{item.status == 'S' ? 'Efetivado' : 'Pendente'  }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <span>Total de Registo(s): </span><strong>{{listaFinanceiro?.meta?.total}}</strong>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+                <div class="btn-group btn-group-sm">
+                <pagination boundaryLinks="true" [maxSize]="5" [rotate]="false" previousText="&lsaquo;"
+                    nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                    [itemsPerPage]="listaFinanceiro?.meta?.per_page"
+                    [totalItems]="listaFinanceiro?.meta?.total" (pageChanged)="mudarPagina($event)">
+                </pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

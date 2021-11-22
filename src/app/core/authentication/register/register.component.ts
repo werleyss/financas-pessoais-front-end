@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
+import { Uteis } from 'src/app/shared/models/Uteis';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +24,8 @@ export class RegisterComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private authentication$: AuthenticationService
+      private authentication$: AuthenticationService,
+    private alert: ToastrService
   ) {
       if (this.authentication$.usuarioAtualValue) {
           this.router.navigate(['/']);
@@ -49,7 +52,7 @@ export class RegisterComponent implements OnInit {
       if (this.loginForm.invalid) { return; }
 
       this.loading = true;
-      this.objUser = Object.assign({}, this.loginForm.value, this.objUser);
+      this.objUser = Object.assign({}, this.loginForm.value);
 
 
       this.authentication$.register(this.objUser)
@@ -59,8 +62,8 @@ export class RegisterComponent implements OnInit {
                 this.router.navigate([this.returnUrl]);
               },
               error => {
-                  this.error = error;
-                  this.loading = false;
+                this.alert.error(Uteis.ObterErroApi(error), 'Error');
+                this.loading = false;
               });
   }
 }

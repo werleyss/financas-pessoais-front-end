@@ -11,15 +11,13 @@ import { environment } from 'src/environments/environment';
 export class FinanceiroService {
   constructor(private http: HttpClient) { }
 
-  obterTodos(obj: FinanceiroViewModel): Observable<RetornoApiViewModel<FinanceiroViewModel>> {
+  obterTodos(obj: any): Observable<RetornoApiViewModel<FinanceiroViewModel[]>> {
 
-    const params = new HttpParams().set('filters', JSON.stringify(obj));
-
-    return this.http.get<RetornoApiViewModel<FinanceiroViewModel>>(`${environment.api_url}/financeiro`, { params });
+    return this.http.get<RetornoApiViewModel<FinanceiroViewModel[]>>(`${environment.api_url}/financeiro`, { params: obj });
   }
 
-  obterPorId(id: number): Observable<FinanceiroViewModel> {
-    return this.http.get<FinanceiroViewModel>(`${environment.api_url}/financeiro/${id}`);
+  obterPorId(id: number): Observable<RetornoApiViewModel<FinanceiroViewModel>> {
+    return this.http.get<RetornoApiViewModel<FinanceiroViewModel>>(`${environment.api_url}/financeiro/${id}`);
   }
 
   adicionar(obj: FinanceiroViewModel): Observable<FinanceiroViewModel> {

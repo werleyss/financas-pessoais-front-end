@@ -1,1 +1,49 @@
-<p>novo works!</p>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<form (ngSubmit)="onSubmit()">
+    <div class="card mb-1 shadow-sm" id="target">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <h1>Conta - Cadastro</h1>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="text-right btns-group">
+                        <a class="btn btn-sm btn-outline-secondary m-1" href="javascript:window.history.back();"><i
+                            class="material-icons">arrow_back</i>Voltar</a>
+        
+                            <button class="btn btn-sm btn-outline-success m-1" id="salvar" type="submit" [disabled]="loading">
+                                <div [ngSwitch]="loading">
+                                    <div *ngSwitchCase="true">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;
+                                        <span>Carregando ...</span>
+                                    </div>
+                                    <div *ngSwitchDefault>
+                                        <i class="material-icons">done_all</i><span>Salvar</span>
+                                    </div>
+                                </div>
+                            </button>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="card-body pt-1 pb-1" [formGroup]="cadastroForm">
+        <div class="row">
+            <div class="col-sm-4 col-md-3 col-lg-2 col-xl-6">
+                <div class="form-group">
+                    <label for="descricao" class="col-form-label-sm">Descrição</label>
+                    <input type="text" id="descricao" name="descricao" class="form-control form-control-sm noscroll" placeholder="Descrição" 
+                        [ngClass]="{'is-invalid': displayMessage.descricao}"
+                        formControlName="descricao">
+                    <span class="invalid-feedback d-block" *ngIf="displayMessage.descricao">
+                        <p [innerHTML]="displayMessage.descricao"></p>
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</form>

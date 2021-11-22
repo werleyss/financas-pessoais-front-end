@@ -13,15 +13,13 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  obterTodos(obj: CategoriaViewModel): Observable<RetornoApiViewModel<CategoriaViewModel>> {
+  obterTodos(obj: any): Observable<RetornoApiViewModel<CategoriaViewModel[]>> {
 
-    const params = new HttpParams().set('filters', JSON.stringify(obj));
-
-    return this.http.get<RetornoApiViewModel<CategoriaViewModel>>(`${environment.api_url}/categoria`, { params });
+    return this.http.get<RetornoApiViewModel<CategoriaViewModel[]>>(`${environment.api_url}/categoria`, {params: obj});
   }
 
-  obterPorId(id: number): Observable<CategoriaViewModel> {
-    return this.http.get<CategoriaViewModel>(`${environment.api_url}/categoria/${id}`);
+  obterPorId(id: number): Observable<RetornoApiViewModel<CategoriaViewModel>> {
+    return this.http.get<RetornoApiViewModel<CategoriaViewModel>>(`${environment.api_url}/categoria/${id}`);
   }
 
   adicionar(obj: CategoriaViewModel): Observable<CategoriaViewModel> {
